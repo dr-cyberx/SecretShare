@@ -1,0 +1,114 @@
+*{
+   margin: 0;
+   padding: 0;
+}
+.navbar{
+   background-color: rgb(40, 40, 40);
+   color: white;
+   display: flex;
+   margin-bottom: 30px;
+}
+.logo{
+   width: 50%;
+   display: flex;
+   justify-content: center;
+   text-align: center;
+   padding: 20px;
+}
+.logo p{
+   font-size: 1.8rem;
+}
+.list-ul{
+   width: 40%;
+   display: flex;
+   justify-content: space-around;
+   list-style: none;
+   text-align: center;
+   align-items: center;
+}
+.listitem{
+   letter-spacing: 4px;
+}
+.listitem a{
+   text-decoration: none;
+   color: white;
+}
+
+.section-one{
+   width: 70%;
+   margin: auto;
+}
+
+.blogTitle{
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+.blogTitle p{
+   font-size: 1.8rem;
+   color: rgb(43, 43, 43);
+}
+.section-one form{
+   display: flex;
+   flex-direction: column;
+   width: 90%;
+   margin : auto;
+   margin-top: 80px;
+}
+.section-one form label{
+   font-size: 1.3rem;
+   margin-bottom: 5px;
+}
+.section-one form input{
+   margin-bottom: 20px;
+   height: 30px;
+   font-size: 1rem;
+   padding: 5px;
+   border-radius: 7px;
+   outline: none;
+   box-shadow: 0.3px 0.3px 5px #b9b9b9;
+   border: 3px solid rgb(175, 175, 175);
+}
+.section-one form textarea{
+   margin-bottom: 10px;
+   min-height: 250px;
+   font-size: 1rem;
+   padding: 5px;
+   box-shadow: 0.3px 0.3px 5px #b9b9b9;
+   border: 3px solid rgb(175, 175, 175);
+   border-radius: 7px;
+   outline: none;
+}
+.submitBtn{
+   font-size: 1rem;
+    width: 160px;
+    height: 38px;
+    border: none;
+    background-color: #3491b1;
+    color: white;
+    border-radius: 7px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0.3px 0.3px 5px #b9b9b9;
+}
+.composeform{
+   position: absolute;
+   bottom: 50px;
+   left: 50px;
+
+}
+.composeBtn{
+   height: 80px;
+   width: 80px;
+   border-radius: 50px;
+   background-color: rgb(40, 40, 40);
+   border: none;
+   font-size: 3rem;
+   color: white;
+   outline: none;
+   cursor: pointer;
+}
+.readmore{
+   text-decoration: none;
+   color: rgb(19, 117, 166);
+}
