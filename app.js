@@ -3,6 +3,8 @@ const bodyparser = require('body-parser');
 const _ = require('lodash');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
+const blogs = require(__dirname + '/defaultBlog.js');
+
 mongoose.connect('mongodb://127.0.0.1:27017/secretShare', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useFindAndModify', false);
 
@@ -17,6 +19,8 @@ app.use('/public', express.static('public'));
 app.use(bodyparser.urlencoded({ extended: true }));
 
 
+//===================================schema section===================================
+
 const userSchema = new mongoose.Schema({
    Title: {
       type: String
@@ -26,48 +30,60 @@ const userSchema = new mongoose.Schema({
    }
 });
 
+const loginUserSchema = new mongoose.Schema({
+   Email: {
+      type: String
+   },
+   Password: {
+      type: String
+   }
+});
+
+//===================================schema section===================================
+
+
+
+// ===================================model section===================================
+
 const userModel = mongoose.model('SecretUser', userSchema);
+const loginUserModel = mongoose.model('UserData', loginUserSchema);
 
-const b1 = new userModel({
-   Title: 'Day-1',
-   Content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus facere iste quam, exercitationem delectus possimus pariatur similique quod cum asperiores aliquid reiciendis et, repudiandae adipisci aspernatur vero veritatis nobis recusandae enim hic vitae suscipit minus inventore? Quos quidem magni minima ducimus, accusantium repellendus labore illum pariatur fugit, et vero.'
-});
+// ===================================model section===================================
 
-const b2 = new userModel({
-   Title: 'Day-2',
-   Content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus facere iste quam, exercitationem delectus possimus pariatur similique quod cum asperiores aliquid reiciendis et, repudiandae adipisci aspernatur vero veritatis nobis recusandae enim hic vitae suscipit minus inventore? Quos quidem magni minima ducimus, accusantium repellendus labore illum pariatur fugit, et vero.'
-});
+const DefaultBlog = blogs;
 
-const b3 = new userModel({
-   Title: 'Day-3',
-   Content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus facere iste quam, exercitationem delectus possimus pariatur similique quod cum asperiores aliquid reiciendis et, repudiandae adipisci aspernatur vero veritatis nobis recusandae enim hic vitae suscipit minus inventore? Quos quidem magni minima ducimus, accusantium repellendus labore illum pariatur fugit, et vero.'
-});
+const b1 = new userModel(blogs.b1());
+
+const b2 = new userModel(blogs.b2());
+
+const b3 = new userModel(blogs.b3());
 
 const arr = [b1, b2, b3];
 
-app.route('/')
 
-   .get((req, res) => {
-      userModel.find({}, (err, result) => {
 
-         if (result.length === 0) {
-            userModel.insertMany(arr, function (error, found) {
-               if (!error) {
-                  res.redirect('/');
-                  // console.log('error' + error);
-               }
-            })
-         } else {
-            res.render('home', { list: result })
-         }
-      })
-   });
+// ==================================routes==================================
 
-app.route('/compose')
+app.get('/', (req, res) => {
+   userModel.find({}, (err, result) => {
 
-   .get((req, res) => {
-      res.render('compose')
-   });
+      if (result.length === 0) {
+         userModel.insertMany(arr, function (error, found) {
+            if (!error) {
+               res.redirect('/');
+               // console.log('error' + error);
+            }
+         })
+      } else {
+         res.render('home', { list: result })
+         console.log(result);
+      }
+   })
+});
+
+app.get('/compose', (req, res) => {
+   res.render('compose')
+});
 
 app.post('/', (req, res) => {
    const title = req.body.posttitle;
@@ -92,6 +108,39 @@ app.get('/about', function (req, res) {
    res.render('about')
 });
 
+app.get('/signup', function (req, res) {
+   res.render('signup');
+});
+
+app.get('/login', function (req, res) {
+   res.render('login');
+});
+
+app.post('/login', function (req, res) {
+   const username = req.body.userEmail;
+   const password = req.body.userPassword;
+   loginUserModel.findOne({Email : username} , function(err , docs){
+      if(docs){
+         res.redirect('/');
+      }else{
+         res.redirect('/login');
+      }
+   });
+   // res.render('login');
+});
+
+
+app.post('/signup', function (req, res) {
+   const username = req.body.userEmail;
+   const password = req.body.userPassword;
+   const User = new loginUserModel({
+      Email: username,
+      Password: password
+   });
+   User.save();
+   res.redirect('/');
+});
+
 app.get("/:id", function (req, res) {
    const route = _.capitalize(_.camelCase(req.params.id));
    userModel.find({}, function (err, docs) {
@@ -99,6 +148,7 @@ app.get("/:id", function (req, res) {
          docs.forEach(function (doc) {
             if (route === _.capitalize(_.camelCase(doc.Title))) {
                res.render('post', { item: doc })
+               // console.log('hello world');
             }
          })
       }
