@@ -4,14 +4,14 @@ body{
 .signupForm{
    width: 30%;
    margin: auto;
-   border: 3px solid rgb(211, 211, 211);
+   border: 3px solid rgba(211, 211, 211, 0);
    border-radius: 10px;
    display: flex;
    flex-direction: column;
    margin-top: 150px;
    padding: 0px 20px 30px 20px;
-   background-color:  rgb(241, 241, 241);
-   box-shadow: 0.2px 0.2px 30px rgb(63, 63, 63);
+   background-color:  rgb(255, 255, 255);
+   box-shadow: 0.2px 0.2px 50px rgb(89, 89, 89);
 }
 
 .signupForm label{
@@ -48,4 +48,5 @@ form p{
    color: rgb(53, 53, 53);
    align-self: center;
    margin: 30px;
+   font-weight: bold;
 }

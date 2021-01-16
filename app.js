@@ -4,9 +4,17 @@ const _ = require('lodash');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const blogs = require(__dirname + '/defaultBlog.js');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
+
+const saltRounds = 10;
 
 mongoose.connect('mongodb://127.0.0.1:27017/secretShare', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -14,12 +22,23 @@ const port = 3000;
 
 const app = express();
 
+// ===================================middleware===================================
+
 app.set('view engine', 'ejs');
 app.use('/public', express.static('public'));
 app.use(bodyparser.urlencoded({ extended: true }));
 
 
-//===================================schema section===================================
+app.use(session({
+   secret: 'Our little secret',
+   resave: false,
+   saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//===================================schema section=================================
 
 const userSchema = new mongoose.Schema({
    Title: {
@@ -31,13 +50,15 @@ const userSchema = new mongoose.Schema({
 });
 
 const loginUserSchema = new mongoose.Schema({
-   Email: {
+   Username: {
       type: String
    },
    Password: {
       type: String
    }
 });
+
+loginUserSchema.plugin(passportLocalMongoose);
 
 //===================================schema section===================================
 
@@ -47,6 +68,11 @@ const loginUserSchema = new mongoose.Schema({
 
 const userModel = mongoose.model('SecretUser', userSchema);
 const loginUserModel = mongoose.model('UserData', loginUserSchema);
+
+passport.use(loginUserModel.createStrategy());
+
+passport.serializeUser(loginUserModel.serializeUser());
+passport.deserializeUser(loginUserModel.deserializeUser());
 
 // ===================================model section===================================
 
@@ -64,40 +90,58 @@ const arr = [b1, b2, b3];
 
 // ==================================routes==================================
 
-app.get('/', (req, res) => {
-   userModel.find({}, (err, result) => {
+app.get('/', function (req, res) {
+   res.redirect('/login');
+})
 
-      if (result.length === 0) {
-         userModel.insertMany(arr, function (error, found) {
-            if (!error) {
-               res.redirect('/');
-               // console.log('error' + error);
-            }
-         })
-      } else {
-         res.render('home', { list: result })
-         console.log(result);
-      }
-   })
+app.get('/home', (req, res) => {
+
+
+   if (req.isAuthenticated()) {
+      // console.log('authentication true')
+      userModel.find({}, (err, result) => {
+
+         if (result.length === 0) {
+            userModel.insertMany(arr, function (error, found) {
+               if (!error) {
+                  res.redirect('/');
+                  // console.log('error' + error);
+               }
+            })
+         } else {
+            res.render('home', { list: result })
+            // console.log(result);
+         }
+      })
+   } else {
+      console.log('authentication failed');
+      res.redirect('/login');
+
+   }
 });
 
 app.get('/compose', (req, res) => {
-   res.render('compose')
+   if (req.isAuthenticated()) {
+      res.render('compose')
+   } else {
+      res.redirect('/login');
+   }
+
 });
 
-app.post('/', (req, res) => {
+app.post('/home', (req, res) => {
    const title = req.body.posttitle;
    const content = req.body.postContent;
 
-   console.log(title)
-   console.log(content)
+   // console.log(title)
+   // console.log(content)
    const user = new userModel({
       Title: title,
       Content: content
    });
 
    user.save();
-   res.redirect('/')
+   res.redirect('/home')
 });
 
 app.get('/contact', function (req, res) {
@@ -117,28 +161,58 @@ app.get('/login', function (req, res) {
 });
 
 app.post('/login', function (req, res) {
-   const username = req.body.userEmail;
-   const password = req.body.userPassword;
-   loginUserModel.findOne({Email : username} , function(err , docs){
-      if(docs){
-         res.redirect('/');
-      }else{
-         res.redirect('/login');
+
+   const user = new loginUserModel({
+      username: req.body.username,
+      password: req.body.password
+   });
+
+   req.login(user, function (error) {
+      if (error) {
+         console.log("line no 172" + error);
+         res.redirect('/login')
+      } else {
+         passport.authenticate('local')(req, res, function () {
+            res.redirect('/home');
+         });
       }
    });
-   // res.render('login');
+
+
+   // loginUserModel.findOne({ Email: username }, function (err, docs) {
+   //    if (err) {
+   //       res.redirect('/login');
+   //    } else {
+   //       if (docs) {
+   //          bcrypt.compare(password, docs.Password, function (error, result) {
+   //             if (result === true) {
+   //                res.redirect('/home');
+   //             }
+   //          });
+   //       }
+   //    }
+   // });
 });
 
 
 app.post('/signup', function (req, res) {
-   const username = req.body.userEmail;
-   const password = req.body.userPassword;
-   const User = new loginUserModel({
-      Email: username,
-      Password: password
+
+   loginUserModel.register({ username: req.body.username }, req.body.password, function (error, result) {
+      if (error) {
+         console.log(error);
+         res.redirect('/signup');
+      } else {
+         passport.authenticate('local')(req, res, function () {
+            res.redirect('/home');
+         })
+      }
    });
-   User.save();
-   res.redirect('/');
+
+});
+
+app.get('/logout', function (req, res) {
+   req.logout();
+   res.redirect('/login');
 });
 
 app.get("/:id", function (req, res) {

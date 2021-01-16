@@ -7,6 +7,7 @@
    color: white;
    display: flex;
    margin-bottom: 30px;
+   align-items: center;
 }
 .logo{
    width: 50%;
@@ -111,4 +112,17 @@
 .readmore{
    text-decoration: none;
    color: rgb(19, 117, 166);
+}
+.logutBtn{
+   font-size: 1rem;
+   width: 90px;
+   height: 38px;
+   border: none;
+   background : transparent;
+   color: white;
+   border-radius: 7px;
+   outline: none;
+   cursor: pointer;
+   border: 3px solid rgb(112, 167, 214);
+   letter-spacing: 2px;
 }
