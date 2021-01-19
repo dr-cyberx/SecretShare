@@ -9,7 +9,7 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 
-const saltRounds = 10;
+// const saltRounds = 10;
 
 mongoose.connect('mongodb://127.0.0.1:27017/secretShare', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useFindAndModify', false);
@@ -76,7 +76,7 @@ passport.deserializeUser(loginUserModel.deserializeUser());
 
 // ===================================model section===================================
 
-const DefaultBlog = blogs;
+// const DefaultBlog = blogs;
 
 const b1 = new userModel(blogs.b1());
 
@@ -98,19 +98,16 @@ app.get('/home', (req, res) => {
 
 
    if (req.isAuthenticated()) {
-      // console.log('authentication true')
       userModel.find({}, (err, result) => {
 
          if (result.length === 0) {
             userModel.insertMany(arr, function (error, found) {
                if (!error) {
                   res.redirect('/');
-                  // console.log('error' + error);
                }
             })
          } else {
             res.render('home', { list: result })
-            // console.log(result);
          }
       })
    } else {
@@ -133,8 +130,6 @@ app.post('/home', (req, res) => {
    const title = req.body.posttitle;
    const content = req.body.postContent;
 
-   // console.log(title)
-   // console.log(content)
    const user = new userModel({
       Title: title,
       Content: content
@@ -177,21 +172,6 @@ app.post('/login', function (req, res) {
          });
       }
    });
-
-
-   // loginUserModel.findOne({ Email: username }, function (err, docs) {
-   //    if (err) {
-   //       res.redirect('/login');
-   //    } else {
-   //       if (docs) {
-   //          bcrypt.compare(password, docs.Password, function (error, result) {
-   //             if (result === true) {
-   //                res.redirect('/home');
-   //             }
-   //          });
-   //       }
-   //    }
-   // });
 });
 
 
@@ -222,12 +202,10 @@ app.get("/:id", function (req, res) {
          docs.forEach(function (doc) {
             if (route === _.capitalize(_.camelCase(doc.Title))) {
                res.render('post', { item: doc })
-               // console.log('hello world');
             }
          })
       }
    })
-   // res.redirect('/')
 });
 
 

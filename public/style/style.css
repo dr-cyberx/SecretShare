@@ -1,26 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 *{
    margin: 0;
    padding: 0;
+   font-family: 'Poppins', sans-serif;
+}
+body{
+   background-color: rgb(232, 239, 243);
 }
 .navbar{
-   background-color: rgb(40, 40, 40);
+   background: linear-gradient(to right top , rgba(90, 204, 183, 0.761) , rgba(99, 202, 218, 0.732));
+     box-shadow: 0.1px 0.1px 10px rgb(118, 118, 118);
+   backdrop-filter: blur(2rem);
    color: white;
    display: flex;
-   margin-bottom: 30px;
+   margin-bottom: 10px;
    align-items: center;
+   z-index: 3;
+   position: sticky;
+   top: 0;
 }
 .logo{
-   width: 50%;
+   width: 40%;
    display: flex;
    justify-content: center;
    text-align: center;
-   padding: 20px;
+   padding: 25px;
 }
 .logo p{
-   font-size: 1.8rem;
+   font-size: 2.5rem;
+   font-weight: 600;
+   /* text-shadow: 0.1px 0.1px 5px rgb(156, 156, 156); */
+   cursor: pointer;
+   letter-spacing: 5px;
 }
 .list-ul{
-   width: 40%;
+   width: 50%;
    display: flex;
    justify-content: space-around;
    list-style: none;
@@ -33,6 +47,12 @@
 .listitem a{
    text-decoration: none;
    color: white;
+   /* font-weight: 600; */
+   font-size: 1.1rem;
+   transition: all 0.2s ease-in-out;
+}
+.listitem a:hover{
+   text-shadow: 0.2px 0.2px 20px rgb(122, 122, 122);
 }
 
 .section-one{
@@ -46,15 +66,33 @@
 }
 
 .blogTitle p{
-   font-size: 1.8rem;
-   color: rgb(43, 43, 43);
+   font-size: 1.5rem;
+   color: #426696;
+   font-weight: 500;
+
 }
+.content p{
+   font-size: 16px;
+   font-weight: 400;
+   color: #232222;
+   letter-spacing: 0.5px;
+}
+.section-one{
+   background: linear-gradient(to right bottom , rgba(255, 255, 255, 0.704) , rgba(255, 255, 255, 0.38));
+border: 2px solid rgba(255, 255, 255, 0.704);
+padding: 1rem 1rem;
+backdrop-filter : blur(1rem);
+margin-bottom: 10px;
+box-shadow: 0.1px 0.1px 5px rgb(161, 161, 161);
+border-radius: 0.5rem;
+}
+
 .section-one form{
    display: flex;
    flex-direction: column;
-   width: 90%;
+   width: 80%;
    margin : auto;
-   margin-top: 80px;
+   margin-top: 50px;
 }
 .section-one form label{
    font-size: 1.3rem;
@@ -80,6 +118,14 @@
    border-radius: 7px;
    outline: none;
 }
+.section-one .writeBlog p{
+   text-align: center;
+   font-size: 2rem;
+   letter-spacing: 2px;
+   font-weight: 500;
+   color: #426696;
+}
+
 .submitBtn{
    font-size: 1rem;
     width: 160px;
@@ -101,13 +147,22 @@
 .composeBtn{
    height: 80px;
    width: 80px;
-   border-radius: 50px;
-   background-color: rgb(40, 40, 40);
+   border-radius: 50%;
+   background-color: rgb(55, 55, 55);
    border: none;
    font-size: 3rem;
    color: white;
    outline: none;
    cursor: pointer;
+   transition: all 0.2s ease-in-out;
+   position: fixed;
+   left: 5%;
+   bottom: 5%;
+}
+.composeBtn:hover{
+   background-color: rgb(33, 33, 33);
+   box-shadow: 0.2px 0.2px 10px rgb(79, 79, 79);
+
 }
 .readmore{
    text-decoration: none;
@@ -115,7 +170,7 @@
 }
 .logutBtn{
    font-size: 1rem;
-   width: 90px;
+   width: 50px;
    height: 38px;
    border: none;
    background : transparent;
@@ -123,6 +178,35 @@
    border-radius: 7px;
    outline: none;
    cursor: pointer;
-   border: 3px solid rgb(112, 167, 214);
-   letter-spacing: 2px;
+   border: 3px solid rgb(65, 65, 65);
+   font-weight: 600;
+   background: rgb(70, 70, 70);
+   box-shadow: 0.2px 0.2px 3px rgb(79, 79, 79);
+   transition: all 0.3s ease-in-out;
+}
+.logutBtn:hover{
+   border: rgb(65, 65, 65);
+   background: rgb(38, 38, 38);
+   box-shadow: 0.2px 0.2px 3px rgb(79, 79, 79);
+}
+.circle1 , .circle2 , .circle3{
+   background: linear-gradient(to right top , #65dfc947 , #6cdaeb4c);
+   height: 10rem;
+   width: 10rem;
+   border-radius: 50%;
+   position: absolute;
+   z-index: -1;
+   /* border: 2px solid red; */
+}
+.circle1{
+   right: 10%;
+   top: 20%
+}
+.circle2{
+   left: 10%;
+   bottom: 20%
+}
+.circle3{
+   left: 50%;
+   bottom: 10%
 }

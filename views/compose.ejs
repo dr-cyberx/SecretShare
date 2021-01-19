@@ -1,7 +1,10 @@
 <%- include('partials/header.ejs'); -%>
 
 <div class="section-one">
-   <form action="/home" method="POST">
+   <div class="writeBlog">
+      <p>Write your Blog</p>
+   </div>
+   <form class="postform" action="/home" method="POST">
       <label for="ftitle">Title</label>
       <input type="text" name="posttitle">
       <label for="fcontent">Content</label>
@@ -9,6 +12,8 @@
       <button type="submit" class="submitBtn">Submit</button>
    </form>
 </div>
-
+<div class="circle1"></div>
+<div class="circle2"></div>
+<div class="circle3"></div>
 
 <%- include('partials/footer.ejs'); -%>

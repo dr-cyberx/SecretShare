@@ -5,17 +5,22 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Sign Up</title>
+   <script src='https://kit.fontawesome.com/a076d05399.js'></script>
    <link rel="stylesheet" href="/public/style/loginStyle.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
    <form class="signupForm" action="/login" method="POST">
       <p>Login</p>
-      <label for="fname">Email</label>
+      <label for="fname"><i class="fa fa-envelope"></i> Email</label>
       <input type="text" name="username">
-      <label for="password">Password</label>
+      <label for="password"><i class='fas fa-key'></i>Password</label>
       <input type="password" name="password">
-      <button class="btn">Login</button>
+      <div class="btn-route">
+         <button class="btn">Login</button>
+         <a href=""></a>
+      </div>
    </form>
 
 </body>

@@ -6,16 +6,20 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Sign Up</title>
    <link rel="stylesheet" href="/public/style/loginStyle.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
    <form class="signupForm" action="/signup" method="POST">
       <p>Sign Up</p>
-      <label for="fname">Email</label>
+      <label for="fname"><i class="fa fa-envelope"></i>Email</label>
       <input type="text" name="username">
-      <label for="password">Password</label>
+      <label for="password"><i class="fa fa-key"></i>Password</label>
       <input type="password" name="password">
-      <button class="btn">Sign Up</button>
+      <div class="btn-route">
+         <button class="btn">Sign Up</button>
+         <a href="/login">already have accout?</a>
+      </div>
    </form>
 
 </body>
