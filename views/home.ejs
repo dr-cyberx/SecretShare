@@ -1,15 +1,18 @@
 <%- include('partials/header.ejs'); -%>
 
-<% list.forEach(function(item){ %>
-<section class="section-one">
-   <div class="blogTitle">
-      <p><%= item.Title %></p>
-   </div>
-   <div class="content">
-      <p><%= item.Content.slice(0 , 150) %> <a class="readmore" href="/<%= item.Title %>">Read more...</a></p>
-   </div>
-</section>
-<% }) %>
+<div class="body-section">
+   <% list.forEach(function(item){ %>
+      <section class="section-one">
+         <div class="blogTitle">
+            <p><%= item.Title %></p>
+         </div>
+         <div class="content">
+            <p><%= item.Content.slice(0 , 150) %> <a class="readmore" href="/<%= item.Title %>">Read more...</a></p>
+         </div>
+      </section>
+      <% }) %>
+</div>
+
 
 
 <form action="/compose" method="GET" class="composeform">

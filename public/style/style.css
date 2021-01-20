@@ -18,6 +18,7 @@ body{
    z-index: 3;
    position: sticky;
    top: 0;
+   transition: all 0.3s ease-in-out;
 }
 .logo{
    width: 40%;
@@ -53,6 +54,21 @@ body{
 }
 .listitem a:hover{
    text-shadow: 0.2px 0.2px 20px rgb(122, 122, 122);
+}
+
+.hamburgur{
+   width: 40px;
+   height: 12px;
+   position: absolute;
+   right: 5%;
+   top: 46px;
+   display: none;
+}
+.box1,.box2,.box3{
+   width: 40px;
+   height: 4px;
+   background-color: white;
+   margin: 6px;
 }
 
 .section-one{
@@ -209,4 +225,49 @@ border-radius: 0.5rem;
 .circle3{
    left: 50%;
    bottom: 10%
+}
+
+@media only screen and (max-width : 1073px){
+   .listitem{
+      letter-spacing: 0px;
+   }
+}
+
+@media only screen and (max-width : 896px){
+   .navbar{
+      display: flex;
+      height: 107px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+   }
+   .listitem{
+      letter-spacing: 0px;
+   }
+   .hamburgur{
+      display: block;
+   }
+   .h-nav{
+      height: 257px;
+   }
+   .logutBtn {
+      margin: 18px;
+  }
+  .list-ul{
+   width: 90%;
+   margin: 12px;
+  }
+
+.blogTitle p{
+   font-size: 0.8rem;
+   color: #426696;
+   font-weight: 500;
+
+}
+.content p{
+   font-size: 12px;
+   font-weight: 400;
+   color: #232222;
+   letter-spacing: 0.5px;
+}
 }

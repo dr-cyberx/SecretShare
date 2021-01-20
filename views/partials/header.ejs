@@ -12,17 +12,23 @@
 </head>
 
 <body>
-   <nav class="navbar">
+   <nav id="navbar" class="navbar">
       <div class="logo">
          <p>𝕭𝖆𝖈𝖐𝖑𝖆𝖘𝖍</p>
       </div>
       <ul class="list-ul">
-         <li class="listitem"> <a href="/home">Home</a> <i class='fas fa-home'></i></li>
-         <li class="listitem"> <a href="/about">About</a> <i class='fas fa-user-friends'></i> </li>
-         <li class="listitem"> <a href="/contact">Contact Us</a> <i class='fas fa-phone'></i></li>
+         <li class="listitem"><i class='fas fa-home'></i> <a href="/home">Home</a> </li>
+         <li class="listitem"> <i class='fas fa-user-friends'></i><a href="/about">About</a>  </li>
+         <li class="listitem"> <i class='fas fa-phone'></i><a href="/contact">Contact Us</a> </li>
 
       </ul>
       <form action="/logout" method="GET">
          <button type="submit" class="logutBtn"><i class="fa fa-sign-out"></i></button>
-         </form>
+      </form>
+
+      <div id="hamburgur" class="hamburgur">
+         <div class="box1"></div>
+         <div class="box2"></div>
+         <div class="box3"></div>
+      </div>
    </nav>
