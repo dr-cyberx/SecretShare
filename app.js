@@ -11,13 +11,14 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 // const saltRounds = 10;
 
-mongoose.connect('mongodb://127.0.0.1:27017/secretShare', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://drcyberx:drcyberx@cluster0.ee8yf.mongodb.net/BackLash', { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
 
-const hostname = '127.0.0.1';
-const port = 3000;
+
+// const hostname = '127.0.0.1';
+// const port = 3000;
 
 
 const app = express();
@@ -209,6 +210,6 @@ app.get("/:id", function (req, res) {
 });
 
 
-app.listen(port, hostname, () => {
-   console.log(`The server is running at http://${hostname}:${port}`);
+app.listen(process.env.PORT ,  () => {
+   // console.log(`The server is running at http://${hostname}:${port}`);
 });
