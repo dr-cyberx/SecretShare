@@ -17,8 +17,8 @@ mongoose.set('useCreateIndex', true);
 
 
 
-// const hostname = '127.0.0.1';
-// const port = 3000;
+const hostname = '127.0.0.1';
+const port = 3000;
 
 
 const app = express();
@@ -62,7 +62,6 @@ const loginUserSchema = new mongoose.Schema({
 loginUserSchema.plugin(passportLocalMongoose);
 
 //===================================schema section===================================
-
 
 
 // ===================================model section===================================
